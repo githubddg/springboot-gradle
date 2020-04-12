@@ -1,0 +1,66 @@
+buildscript {
+    repositories{
+        maven{url "http://maven.aliyun.com/nexus/content/groups/public"}
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE"
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.5.RELEASE'
+    }
+}
+
+plugins {
+    id 'java'
+}
+//gradle build成war包的方式
+//apply plugin: 'java'
+//apply plugin: 'idea'
+//apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'war'
+
+//gradle build成jar包的方式
+apply plugin:'java'
+apply plugin:'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public"}
+}
+
+dependencies {
+    implementation fileTree(dir:'lib',includes: ['*.jar'])
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+//    implementation 'mysql:mysql-connector-java:8.0.15'
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+//    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
+//    implementation 'com.baomidou:mybatis-plus-boot-starter:3.2.0'
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation 'com.alibaba:fastjson:1.2.62'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation 'org.apache.httpcomponents:httpclient:4.5.3'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime
+    implementation 'org.apache.httpcomponents:httpmime:4.5.3'
+}
+
+//将xml等静态资源加载至build后的项目中
+sourceSets {
+    main{
+        resources {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+tasks.withType(JavaCompile){
+    options.encoding="UTF-8"
+}
